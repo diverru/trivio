@@ -25,5 +25,5 @@ RUN pip3 install -r /requirements.txt \
 COPY docker/trivio_backend/gunicorn.conf.py /
 #TODO: COPY trivio_backend /trivio_backend
 
-CMD ["/usr/local/bin/gunicorn", "backend.wsgi:application", "-c", "/gunicorn.conf.py"]
+CMD ["/usr/local/bin/gunicorn", "trivio_backend.wsgi:application", "-c", "/gunicorn.conf.py"]
 

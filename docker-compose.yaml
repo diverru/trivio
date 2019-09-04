@@ -7,7 +7,8 @@ services:
       dockerfile: ./docker/trivio_backend/Dockerfile
     volumes:
       - ./trivio_backend:/trivio_backend
-    command: ['./manage.py', 'runserver', '0.0.0.0:8000']
+      - ./var/log/gunicorn:/var/log/gunicorn
+    #command: ['./manage.py', 'runserver', '0.0.0.0:8000']
     ports:
       - "8000:8000"
     expose:

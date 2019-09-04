@@ -3,5 +3,5 @@ workers = 2
 name = "trivio_backend"
 user = "nobody"
 loglevel = "info"
-accesslog = "/var/www/logs/access.log"
-errorlog = "/var/www/logs/gunicorn.log"
+accesslog = "/var/log/gunicorn/access.log"
+errorlog = "/var/log/gunicorn/gunicorn.log"
