@@ -107,6 +107,32 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'simple': {
+            'format': '{asctime} {levelname} [{module}] {message}',
+            'style': '{',
+        },
+    },
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+            'formatter': 'simple',
+        },
+    },
+    'loggers': {
+        'django': {
+            'level': 'INFO',
+            'propagate': True,
+        },
+    },
+    'root': {
+        'level': 'INFO',
+        'handlers': ['console'],
+    }
+}
 
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
@@ -126,3 +152,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+
+# set to None to work without hunter.io verification
+EMAIL_HUNTER_API_KEY = "9173d7dab733ec1dffa10c5b62ea0745cd8401d5"
