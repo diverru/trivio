@@ -28,6 +28,8 @@ class PostSerializer(serializers.ModelSerializer):
 
 
 class PostItems(generics.ListCreateAPIView):
+    """Get posts list or create new post
+    """
     permission_classes = (ReadOnly|permissions.IsAuthenticated, )
     queryset = models.Post.objects
     serializer_class = PostSerializer
@@ -37,6 +39,8 @@ class PostItems(generics.ListCreateAPIView):
 
 
 class PostItemDetail(generics.RetrieveAPIView):
+    """Get single post information
+    """
     queryset = models.Post.objects
     serializer_class = PostSerializer
 
@@ -44,11 +48,14 @@ class PostItemDetail(generics.RetrieveAPIView):
 @api_view(["POST"])
 @permission_classes((permissions.IsAuthenticated, ))
 def like_post(request, pk):
+    """Unlike the post. Liking post that you have already liked will no effect.
+    Self-liking is not allowed
+    """
     post = models.Post.objects.get(pk=pk)
     if post.user == request.user:
         return response.Response({
             "error": "self-liking is not allowed",
-        }, status=status.HTTP_405_METHOD_NOT_ALLOWED)
+        }, status=status.HTTP_400_BAD_REQUEST)
     post.likes.add(request.user)
     return response.Response({
         "num_likes": post.likes.count(),
@@ -58,6 +65,8 @@ def like_post(request, pk):
 @api_view(["POST"])
 @permission_classes((permissions.IsAuthenticated, ))
 def unlike_post(request, pk):
+    """Unlike the post. Unliking post that you haven't liked will have no effect
+    """
     post = models.Post.objects.get(pk=pk)
     post.likes.remove(request.user)
 

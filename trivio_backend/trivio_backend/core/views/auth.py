@@ -32,8 +32,11 @@ def enrich_user(email, user):
 
 @api_view(["POST"])
 def auth_signup(request):
-    """add documentation string here **hello**
-    # its title
+    """Create new user.
+
+    Required fields: `email`, `username`, `password`
+
+    Optional fields: `first_name`, `last_name`
     """
     email = request.data.get("email")
     username = request.data.get("username")
