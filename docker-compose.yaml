@@ -1,0 +1,15 @@
+version: '3.7'
+services:
+  trivio_backend:
+  #  restart: unless-stopped
+    build:
+      context: .
+      dockerfile: ./docker/trivio_backend/Dockerfile
+    volumes:
+      - ./trivio_backend:/trivio_backend
+      - ./var/log/gunicorn:/var/log/gunicorn
+    #command: ['./manage.py', 'runserver', '0.0.0.0:8000']
+    ports:
+      - "8000:8000"
+    expose:
+      - "8000"
