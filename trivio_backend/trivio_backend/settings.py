@@ -154,4 +154,5 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 # set to None to work without hunter.io verification
-EMAIL_HUNTER_API_KEY = "9173d7dab733ec1dffa10c5b62ea0745cd8401d5"
+EMAIL_HUNTER_API_KEY = None
+
