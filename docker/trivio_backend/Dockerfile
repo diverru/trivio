@@ -22,6 +22,4 @@ COPY docker/trivio_backend/requirements.txt /
 RUN pip3 install -r /requirements.txt \
     && rm -rf /root/.cache/pip/*
 
-COPY docker/trivio_backend/gunicorn.conf.py /
-
 COPY trivio_backend /trivio_backend
