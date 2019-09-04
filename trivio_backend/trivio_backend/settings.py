@@ -156,3 +156,4 @@ STATIC_URL = '/static/'
 # set to None to work without hunter.io verification
 EMAIL_HUNTER_API_KEY = None
 
+CLEARBIT_API_KEY = None

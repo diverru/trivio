@@ -10,6 +10,7 @@ logger = logging.getLogger(__name__)
 
 RE_EMAIL = re.compile(r"(^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$)")
 HUNTER_VERIFIER_URL = "https://api.hunter.io/v2/email-verifier?email={email}&api_key={api_key}"
+CLEARBIT_ENRICHMENT_URL = "https://person.clearbit.com/v1/people/email/{email}"
 
 
 def verify_email(email):
@@ -34,3 +35,15 @@ def verify_email(email):
 
     return data["regexp"] and data["smtp_server"] and data["smtp_check"]
 
+
+def enrich_email(email):
+    if settings.CLEARBIT_API_KEY is None:
+        return {}
+    headers = {
+        "Authorization": f"Bearer {settings.CLEARBIT_API_KEY}"
+    }
+    data = call_external_api(
+        url=CLEARBIT_ENRICHMENT_URL.format(email=email),
+        headers=headers,
+    )
+    return data or {}

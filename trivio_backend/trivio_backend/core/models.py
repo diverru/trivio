@@ -8,6 +8,7 @@ class User(AbstractUser):
             models.Index(fields=["email"]),
             models.Index(fields=["username"]),
         ]
+    location = models.CharField(max_length=100, null=True)
 
 
 class Post(models.Model):

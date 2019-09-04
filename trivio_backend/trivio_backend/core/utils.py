@@ -8,11 +8,11 @@ from rest_framework.permissions import BasePermission, SAFE_METHODS
 logger = logging.getLogger(__name__)
 
 
-def call_external_api(url, max_attempts=3, timeout=5, retry_interval=0.5):
+def call_external_api(url, max_attempts=3, timeout=5, retry_interval=0.5, **kwargs):
     for attempt in range(max_attempts):
         try:
             logger.info(f"calling API {url}, attempt {attempt + 1}")
-            r = requests.get(url, timeout=timeout)
+            r = requests.get(url, timeout=timeout, **kwargs)
             if r.status_code == 200:
                 logger.info(f"API call successful")
                 return r.json()

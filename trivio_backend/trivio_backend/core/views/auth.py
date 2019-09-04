@@ -5,7 +5,29 @@ from rest_framework_simplejwt.tokens import RefreshToken
 
 from trivio_backend.core import models
 from django.db.models import Q
-from trivio_backend.core.external import verify_email
+from trivio_backend.core.external import verify_email, enrich_email
+
+
+def update_field_if_empty(obj, field_name, new_value):
+    if new_value and not getattr(obj, field_name):
+        setattr(obj, field_name, new_value)
+
+
+def get_dict_value(root, path):
+    parts = path.split("/")
+    for part in parts:
+        root = root.get(part)
+        if root is None:
+            return None
+    return root
+
+
+def enrich_user(email, user):
+    extra_data = enrich_email(email)
+    update_field_if_empty(user, "first_name", get_dict_value(extra_data, "name/givenName"))
+    update_field_if_empty(user, "last_name", get_dict_value(extra_data, "name/familyName"))
+    update_field_if_empty(user, "location", get_dict_value(extra_data, "location"))
+    user.save()
 
 
 @api_view(["POST"])
@@ -14,7 +36,6 @@ def auth_signup(request):
     # its title
     """
     email = request.POST.get("email")
-    # TODO: enrich user
     username = request.POST.get("username")
     password = request.POST.get("password")
     if not (email and username and password):
@@ -40,6 +61,7 @@ def auth_signup(request):
         last_name=last_name,
         password=password,
     )
+    enrich_user(email, user)
     refresh = RefreshToken.for_user(user)
     return response.Response({
         'refresh': str(refresh),
