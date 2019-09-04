@@ -8,7 +8,7 @@ from rest_framework.permissions import BasePermission, SAFE_METHODS
 logger = logging.getLogger(__name__)
 
 
-def call_external_api(url, max_attempts=3, timeout=5, retry_interval=0.5, **kwargs):
+def call_external_api(url, max_attempts=3, timeout=5, retry_interval=0.5, no_retry_status_codes=tuple(), **kwargs):
     for attempt in range(max_attempts):
         try:
             logger.info(f"calling API {url}, attempt {attempt + 1}")
@@ -17,6 +17,8 @@ def call_external_api(url, max_attempts=3, timeout=5, retry_interval=0.5, **kwar
                 logger.info(f"API call successful")
                 return r.json()
             logger.info(f"got HTTP {r.status_code}")
+            if r.status_code in no_retry_status_codes:
+                return {}
         except requests.exceptions.RequestException:
             logger.exception('')
         logger.info("retrying")

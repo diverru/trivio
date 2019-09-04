@@ -26,10 +26,13 @@ def verify_email(email):
     data = call_external_api(
         url=HUNTER_VERIFIER_URL.format(email=email, api_key=settings.EMAIL_HUNTER_API_KEY),
         timeout=20,
+        no_retry_status_codes=(400,)  # malformed url
     )
     if data is None:
         # it's better to send this case to sentry or something similar
         logger.info(f"problem of getting data from hunter.io")
+        return False
+    if not data:
         return False
     data = data["data"]
 

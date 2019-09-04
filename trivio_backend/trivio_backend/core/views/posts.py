@@ -4,10 +4,8 @@ from rest_framework import status, permissions, serializers, generics, response
 from rest_framework.decorators import api_view, permission_classes
 
 from trivio_backend.core import models
-
 from trivio_backend.core.utils import ReadOnly
 
-# TODO: configure logging
 
 logger = logging.getLogger(__name__)
 
@@ -17,7 +15,11 @@ class PostSerializer(serializers.ModelSerializer):
         model = models.Post
         fields = ["id", "user", "num_likes", "timestamp", "content", "title"]
 
-    user = serializers.PrimaryKeyRelatedField(queryset=models.User.objects, style={'base_template': 'input.html'})
+    user = serializers.PrimaryKeyRelatedField(
+        queryset=models.User.objects,
+        style={'base_template': 'input.html'},
+        required=False
+    )
     num_likes = serializers.SerializerMethodField()
 
     @staticmethod

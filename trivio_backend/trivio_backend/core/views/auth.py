@@ -1,10 +1,10 @@
+from django.db.models import Q
+
 from rest_framework import status, response
 from rest_framework.decorators import api_view
-
 from rest_framework_simplejwt.tokens import RefreshToken
 
 from trivio_backend.core import models
-from django.db.models import Q
 from trivio_backend.core.external import verify_email, enrich_email
 
 
@@ -35,15 +35,15 @@ def auth_signup(request):
     """add documentation string here **hello**
     # its title
     """
-    email = request.POST.get("email")
-    username = request.POST.get("username")
-    password = request.POST.get("password")
+    email = request.data.get("email")
+    username = request.data.get("username")
+    password = request.data.get("password")
     if not (email and username and password):
         return response.Response({
             "error": "one of the required field is not specified"
         })
-    first_name = request.POST.get("first_name")
-    last_name = request.POST.get("last_name")
+    first_name = request.data.get("first_name", '')
+    last_name = request.data.get("last_name", '')
 
     if models.User.objects.filter(Q(username=username) | Q(email=email)).exists():
         return response.Response({
@@ -64,6 +64,7 @@ def auth_signup(request):
     enrich_user(email, user)
     refresh = RefreshToken.for_user(user)
     return response.Response({
+        'id': user.id,
         'refresh': str(refresh),
         'access': str(refresh.access_token),
     }, status=status.HTTP_201_CREATED)
