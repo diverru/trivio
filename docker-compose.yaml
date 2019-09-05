@@ -16,5 +16,5 @@ services:
     build:
       context: .
       dockerfile: ./docker/trivio_bot/Dockerfile
-    volumes:
-      - ./trivio_bot:/trivio_bot
+    # volumes:
+    #   - ./trivio_bot:/trivio_bot
