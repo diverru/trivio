@@ -27,7 +27,6 @@ def enrich_user(email, user):
     update_field_if_empty(user, "first_name", get_dict_value(extra_data, "name/givenName"))
     update_field_if_empty(user, "last_name", get_dict_value(extra_data, "name/familyName"))
     update_field_if_empty(user, "location", get_dict_value(extra_data, "location"))
-    user.save()
 
 
 @api_view(["POST"])
@@ -62,9 +61,10 @@ def auth_signup(request):
         username=username,
         first_name=first_name,
         last_name=last_name,
-        password=password,
     )
+    user.set_password(password)
     enrich_user(email, user)
+    user.save()
     refresh = RefreshToken.for_user(user)
     return response.Response({
         'id': user.id,
