@@ -1,0 +1,47 @@
+first_names: ["nick", "bill", "steve", "chris", "tracey", "joana", "alex", "mickey", "joe"]
+last_names: ["adams", "murrey", "incerman", "jobs", "gates", "smith", "foster", "juja"]
+moods:
+  - Amused
+  - Blissful
+  - Calm
+  - Cheerful
+  - Content
+  - Dreamy
+  - Ecstatic
+  - Energetic
+  - Excited
+  - Flirty
+  - Giddy
+  - Good
+  - Happy
+  - Joyful
+  - Loving
+  - Mellow
+  - Optimistic
+  - Peaceful
+  - Silly
+  - Sympathetic
+  - Angry
+  - Annoyed
+  - Apathetic
+  - Bad
+  - Cranky
+  - Depressed
+  - Envious
+  - Frustrated
+  - Gloomy
+  - Grumpy
+  - Guilty
+  - Indifferent
+  - Irritated
+  - Melancholy
+  - Pessimistic
+  - Rejected
+  - Restless
+  - Sad
+  - Stressed
+  - Weird
+base_url: http://trivio-backend:8000
+number_of_users: 10
+max_posts_per_user: 5
+max_likes_per_user: 10

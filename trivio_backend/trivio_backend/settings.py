@@ -25,7 +25,7 @@ SECRET_KEY = 'fjazf#m7bjhg(i@@fe@l$2^y#!qc44v#7eocawwho7uz7bjbzs'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["127.0.0.1", "trivio-backend", "localhost"]
 
 
 # Application definition
