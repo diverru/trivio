@@ -44,6 +44,6 @@ Notes:
     - more meaningful post content;
     - retries for requests to deal with network and availability problems;
     - save/retrieve bot current state;
-    - probably some async/parallel code;
+    - probably some async/parallel code for interaction with API;
   * probably, we need to make more API for retrieving current backend state, such as posts/users retrieve for given filters;
     but I have no enough time now to write them.
