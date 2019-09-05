@@ -1,13 +1,20 @@
 version: '3.7'
 services:
-  trivio_backend:
+  trivio-backend:
     build:
       context: .
       dockerfile: ./docker/trivio_backend/Dockerfile
     volumes:
     #  - ./trivio_backend:/trivio_backend
-      - ./var/log/gunicorn:/var/log/gunicorn
       - ./var/db:/var/db
     command: ['./manage.py', 'runserver', '0.0.0.0:8000']
     ports:
       - "8000:8000"
+    expose:
+      - 8000
+  trivio-bot:
+    build:
+      context: .
+      dockerfile: ./docker/trivio_bot/Dockerfile
+    volumes:
+      - ./trivio_bot:/trivio_bot

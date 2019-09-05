@@ -11,4 +11,6 @@ urlpatterns = [
     path('api/v1/posts/<int:pk>/', posts.PostItemDetail.as_view()),
     path('api/v1/posts/<int:pk>/like/', posts.like_post),
     path('api/v1/posts/<int:pk>/unlike/', posts.unlike_post),
+    # for the future:
+    # GET posts/v1/posts/ => list of the posts with filtration/ordering/limit
 ]
