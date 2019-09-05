@@ -2,6 +2,12 @@
 
 **Trivio** is django-based application that was designed for building yet another simple (i.e. _trivial_) social network.
 
+## How to run:
+  * install docker & docker-compose
+  * `cd <repo root>`
+  * `docker-compose up trivio-backend` (or run in detached mode if you don't want to see some logging);
+  * wait a bit and run at another tab `docker-compose up trivio-bot`;
+
 ## Features:
   * JWT authentication;
   * email verification through `hunter.io` on signup;
